@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Interactive Graph Algorithm Visualizer - Prim's, Dijkstra's, and Kruskal's algorithms">
+    <title>Algorithms Visualizer | Graph Algorithms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="background-effects">
+        <div class="gradient-orb orb-1 orb-emerald"></div>
+        <div class="gradient-orb orb-2 orb-emerald"></div>
+        <div class="gradient-orb orb-3 orb-emerald"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon logo-icon-emerald">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+            <span>Algorithms Visualizer</span>
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Binary Search</a>
+            <a href="linear-search.html" class="nav-link">Linear Search</a>
+            <a href="bubble-sort.html" class="nav-link">Bubble Sort</a>
+            <a href="insertion-sort.html" class="nav-link">Insertion Sort</a>
+            <a href="selection-sort.html" class="nav-link">Selection Sort</a>
+            <a href="stack.html" class="nav-link">Stack</a>
+            <a href="queue.html" class="nav-link">Queue</a>
+            <a href="graph.html" class="nav-link active">Graph</a>
+            <a href="tree.html" class="nav-link">Trees</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <h1 class="hero-title">
+                <span class="gradient-text-emerald">Graph Algorithms</span>
+                <br>Visualization
+            </h1>
+            <p class="hero-description">
+                Explore graph algorithms: Prim's and Kruskal's for Minimum Spanning Trees,
+                and Dijkstra's for finding the shortest path. Create your own graph or use a preset!
+            </p>
+        </section>
+
+        <section class="controls-section">
+            <div class="controls-card graph-controls">
+                <div class="control-group">
+                    <label>Select Algorithm</label>
+                    <div class="algorithm-selector">
+                        <button id="primsBtn" class="algo-btn active" data-algo="prims">Prim's (MST)</button>
+                        <button id="dijkstraBtn" class="algo-btn" data-algo="dijkstra">Dijkstra's</button>
+                        <button id="kruskalBtn" class="algo-btn" data-algo="kruskal">Kruskal's (MST)</button>
+                    </div>
+                </div>
+
+                <div class="control-group" id="startNodeGroup">
+                    <label for="startNode">Start Node</label>
+                    <div class="input-wrapper">
+                        <select id="startNode" class="text-input select-input">
+                            <option value="A">A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="speedControl">Animation Speed</label>
+                    <div class="input-wrapper">
+                        <input type="range" id="speedControl" min="200" max="2000" value="800"
+                            class="slider slider-emerald">
+                        <span id="speedValue" class="slider-value slider-value-emerald">800ms</span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="runBtn" class="btn btn-primary-emerald">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                        Run Algorithm
+                    </button>
+                    <button id="resetBtn" class="btn btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                        </svg>
+                        Reset
+                    </button>
+                    <button id="presetBtn" class="btn btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                        </svg>
+                        Load Preset
+                    </button>
+                    <button id="clearBtn" class="btn btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14" />
+                        </svg>
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="visualization-section">
+            <div class="visualization-container graph-container">
+                <div class="graph-toolbar">
+                    <span class="toolbar-label">Click to add nodes, drag between nodes to add edges</span>
+                    <div class="toolbar-actions">
+                        <label class="weight-label">
+                            Edge Weight:
+                            <input type="number" id="edgeWeight" value="1" min="1" max="99" class="weight-input">
+                        </label>
+                    </div>
+                </div>
+                <svg id="graphCanvas" class="graph-canvas"></svg>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="info-cards">
+                <div class="info-card status-card">
+                    <div class="card-header">
+                        <div class="card-icon status-icon-emerald">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                                <path d="M12 6v6l4 2" />
+                            </svg>
+                        </div>
+                        <h3>Current Status</h3>
+                    </div>
+                    <div class="status-content">
+                        <p id="statusMessage">Click on the canvas to add nodes, then drag between nodes to create edges
+                        </p>
+                    </div>
+                </div>
+
+                <div class="info-card stats-card">
+                    <div class="card-header">
+                        <div class="card-icon stats-icon-emerald">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10" />
+                                <path d="M12 20V4" />
+                                <path d="M6 20v-6" />
+                            </svg>
+                        </div>
+                        <h3>Statistics</h3>
+                    </div>
+                    <div class="stats-content">
+                        <div class="stat-item">
+                            <span class="stat-label">Nodes</span>
+                            <span id="nodeCount" class="stat-value stat-value-emerald">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Edges</span>
+                            <span id="edgeCount" class="stat-value stat-value-emerald">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Cost</span>
+                            <span id="totalCost" class="stat-value stat-value-emerald">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card legend-card">
+                    <div class="card-header">
+                        <div class="card-icon legend-icon-emerald">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                        </div>
+                        <h3>Legend</h3>
+                    </div>
+                    <div class="legend-content">
+                        <div class="legend-item">
+                            <div class="legend-color node-default"></div>
+                            <span>Unvisited Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-current"></div>
+                            <span>Current Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-visited"></div>
+                            <span>Visited/In MST</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color edge-mst"></div>
+                            <span>Selected Edge</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="algorithm-section">
+            <div class="algorithm-cards-row">
+                <div class="algorithm-card algorithm-card-emerald" id="primsCard">
+                    <div class="algorithm-header algorithm-header-emerald">
+                        <h3>Prim's Algorithm</h3>
+                        <span class="complexity complexity-emerald">O(E log V)</span>
+                    </div>
+                    <div class="algorithm-content algorithm-desc">
+                        <p><strong>Purpose:</strong> Finds the Minimum Spanning Tree (MST)</p>
+                        <p><strong>Approach:</strong> Greedy - grows MST from a starting vertex by always adding the
+                            cheapest edge to a new vertex.</p>
+                        <p><strong>Use Case:</strong> Network design, clustering</p>
+                    </div>
+                </div>
+
+                <div class="algorithm-card algorithm-card-emerald" id="dijkstraCard">
+                    <div class="algorithm-header algorithm-header-emerald">
+                        <h3>Dijkstra's Algorithm</h3>
+                        <span class="complexity complexity-emerald">O(E log V)</span>
+                    </div>
+                    <div class="algorithm-content algorithm-desc">
+                        <p><strong>Purpose:</strong> Finds shortest path from source to all vertices</p>
+                        <p><strong>Approach:</strong> Greedy - always expands the closest unvisited vertex.</p>
+                        <p><strong>Use Case:</strong> GPS navigation, routing protocols</p>
+                    </div>
+                </div>
+
+                <div class="algorithm-card algorithm-card-emerald" id="kruskalCard">
+                    <div class="algorithm-header algorithm-header-emerald">
+                        <h3>Kruskal's Algorithm</h3>
+                        <span class="complexity complexity-emerald">O(E log E)</span>
+                    </div>
+                    <div class="algorithm-content algorithm-desc">
+                        <p><strong>Purpose:</strong> Finds the Minimum Spanning Tree (MST)</p>
+                        <p><strong>Approach:</strong> Greedy - sorts all edges and adds them if they don't form a cycle.
+                        </p>
+                        <p><strong>Use Case:</strong> Network design, image segmentation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Built with ❤️ for learning algorithms</p>
+    </footer>
+
+    <script src="graph.js"></script>
+</body>
+
+</html>

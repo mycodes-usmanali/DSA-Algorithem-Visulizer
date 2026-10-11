@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Interactive Queue Data Structure Visualizer - Learn how queue works with enqueue and dequeue operations">
+    <title>Algorithms Visualizer | Queue</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="background-effects">
+        <div class="gradient-orb orb-1 orb-indigo"></div>
+        <div class="gradient-orb orb-2 orb-indigo"></div>
+        <div class="gradient-orb orb-3 orb-indigo"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon logo-icon-indigo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+            <span>Algorithms Visualizer</span>
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Binary Search</a>
+            <a href="linear-search.html" class="nav-link">Linear Search</a>
+            <a href="bubble-sort.html" class="nav-link">Bubble Sort</a>
+            <a href="insertion-sort.html" class="nav-link">Insertion Sort</a>
+            <a href="selection-sort.html" class="nav-link">Selection Sort</a>
+            <a href="stack.html" class="nav-link">Stack</a>
+            <a href="queue.html" class="nav-link active">Queue</a>
+            <a href="graph.html" class="nav-link">Graph</a>
+            <a href="tree.html" class="nav-link">Trees</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <h1 class="hero-title">
+                <span class="gradient-text-indigo">Queue</span>
+                <br>Visualization
+            </h1>
+            <p class="hero-description">
+                A queue is a FIFO (First In, First Out) data structure. The first element added is the first one to be
+                removed.
+                Think of it like a line at a store - first come, first served!
+            </p>
+        </section>
+
+        <section class="controls-section">
+            <div class="controls-card">
+                <div class="control-group">
+                    <label for="enqueueValue">Value to Enqueue</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="enqueueValue" placeholder="Enter a number" class="text-input" min="1"
+                            max="999">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="maxSize">Max Queue Size</label>
+                    <div class="input-wrapper">
+                        <input type="range" id="maxSize" min="5" max="10" value="8" class="slider slider-indigo">
+                        <span id="maxSizeValue" class="slider-value slider-value-indigo">8</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="speedControl">Animation Speed</label>
+                    <div class="input-wrapper">
+                        <input type="range" id="speedControl" min="100" max="1000" value="300"
+                            class="slider slider-indigo">
+                        <span id="speedValue" class="slider-value slider-value-indigo">300ms</span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="enqueueBtn" class="btn btn-primary-indigo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>
+                        Enqueue
+                    </button>
+                    <button id="dequeueBtn" class="btn btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14" />
+                        </svg>
+                        Dequeue
+                    </button>
+                    <button id="frontBtn" class="btn btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3" />
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+                        </svg>
+                        Front
+                    </button>
+                    <button id="clearBtn" class="btn btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14" />
+                        </svg>
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="visualization-section">
+            <div class="visualization-container ds-container">
+                <div class="queue-wrapper">
+                    <div class="queue-label front-label">FRONT →</div>
+                    <div class="queue-container" id="queueContainer">
+                        <div class="queue-empty-message" id="emptyMessage">Queue is empty</div>
+                    </div>
+                    <div class="queue-label rear-label">← REAR</div>
+                </div>
+                <div class="queue-info">
+                    <div class="info-badge">
+                        <span class="badge-label">Size</span>
+                        <span id="queueSize" class="badge-value">0</span>
+                    </div>
+                    <div class="info-badge">
+                        <span class="badge-label">Capacity</span>
+                        <span id="queueCapacity" class="badge-value">8</span>
+                    </div>
+                    <div class="info-badge front-badge" id="frontBadge">
+                        <span class="badge-label">Front Element</span>
+                        <span id="frontValue" class="badge-value">-</span>
+                    </div>
+                    <div class="info-badge rear-badge" id="rearBadge">
+                        <span class="badge-label">Rear Element</span>
+                        <span id="rearValue" class="badge-value">-</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="info-cards">
+                <div class="info-card status-card">
+                    <div class="card-header">
+                        <div class="card-icon status-icon-indigo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                                <path d="M12 6v6l4 2" />
+                            </svg>
+                        </div>
+                        <h3>Current Status</h3>
+                    </div>
+                    <div class="status-content">
+                        <p id="statusMessage">Enter a value and click "Enqueue" to add to the queue</p>
+                    </div>
+                </div>
+
+                <div class="info-card stats-card">
+                    <div class="card-header">
+                        <div class="card-icon stats-icon-indigo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10" />
+                                <path d="M12 20V4" />
+                                <path d="M6 20v-6" />
+                            </svg>
+                        </div>
+                        <h3>Operations</h3>
+                    </div>
+                    <div class="stats-content">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Enqueues</span>
+                            <span id="totalEnqueues" class="stat-value stat-value-indigo">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Dequeues</span>
+                            <span id="totalDequeues" class="stat-value stat-value-indigo">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Last Operation</span>
+                            <span id="lastOperation" class="stat-value stat-value-indigo">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card legend-card">
+                    <div class="card-header">
+                        <div class="card-icon legend-icon-indigo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                        </div>
+                        <h3>Operations Guide</h3>
+                    </div>
+                    <div class="legend-content">
+                        <div class="legend-item">
+                            <div class="legend-color enqueue-color"></div>
+                            <span>Enqueue - Add to rear</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color dequeue-color"></div>
+                            <span>Dequeue - Remove from front</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color front-color"></div>
+                            <span>Front - View first element</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="algorithm-section">
+            <div class="algorithm-card algorithm-card-indigo">
+                <div class="algorithm-header algorithm-header-indigo">
+                    <h3>Queue Operations</h3>
+                    <span class="complexity complexity-indigo">All Operations: O(1)</span>
+                </div>
+                <div class="algorithm-content">
+                    <pre><code><span class="keyword">class</span> <span class="function">Queue</span> {
+    constructor() {
+        <span class="keyword">this</span>.items = [];
+    }
+    
+    <span class="function">enqueue</span>(element) {
+        <span class="keyword">this</span>.items.push(element);
+    }
+    
+    <span class="function">dequeue</span>() {
+        <span class="keyword">if</span> (<span class="keyword">this</span>.isEmpty()) <span class="keyword">return</span> <span class="string">"Underflow"</span>;
+        <span class="keyword">return</span> <span class="keyword">this</span>.items.shift();
+    }
+    
+    <span class="function">front</span>() {
+        <span class="keyword">return</span> <span class="keyword">this</span>.items[<span class="number">0</span>];
+    }
+    
+    <span class="function">isEmpty</span>() {
+        <span class="keyword">return</span> <span class="keyword">this</span>.items.length === <span class="number">0</span>;
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Built with ❤️ for learning algorithms</p>
+    </footer>
+
+    <script src="queue.js"></script>
+</body>
+
+</html>

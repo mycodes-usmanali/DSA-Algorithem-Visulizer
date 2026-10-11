@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Interactive Tree Visualizer - Learn Binary Search Trees (BST) and AVL trees with insert, delete, and balancing animations">
+    <title>Algorithms Visualizer | Tree Algorithms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="background-effects">
+        <div class="gradient-orb orb-1 orb-violet"></div>
+        <div class="gradient-orb orb-2 orb-violet"></div>
+        <div class="gradient-orb orb-3 orb-violet"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon logo-icon-violet">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+            <span>Algorithms Visualizer</span>
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Binary Search</a>
+            <a href="linear-search.html" class="nav-link">Linear Search</a>
+            <a href="bubble-sort.html" class="nav-link">Bubble Sort</a>
+            <a href="insertion-sort.html" class="nav-link">Insertion Sort</a>
+            <a href="selection-sort.html" class="nav-link">Selection Sort</a>
+            <a href="stack.html" class="nav-link">Stack</a>
+            <a href="queue.html" class="nav-link">Queue</a>
+            <a href="graph.html" class="nav-link">Graph</a>
+            <a href="tree.html" class="nav-link active">Trees</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <h1 class="hero-title">
+                <span class="gradient-text-violet">Tree Algorithms</span>
+                <br>Visualization
+            </h1>
+            <p class="hero-description">
+                Explore Binary Search Trees (BST) and AVL trees. Insert or delete values step-by-step, see self-balancing rotations in action, and animate common DFS/BFS traversals!
+            </p>
+        </section>
+
+        <section class="controls-section">
+            <div class="controls-card tree-controls">
+                <div class="control-group">
+                    <label>Tree Mode</label>
+                    <div class="algorithm-selector">
+                        <button id="bstModeBtn" class="algo-btn active" data-mode="bst">BST (Unbalanced)</button>
+                        <button id="avlModeBtn" class="algo-btn" data-mode="avl">AVL (Self-Balancing)</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="nodeValue">Node Value</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="nodeValue" placeholder="1-99" min="1" max="99" class="text-input number-input">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Operations</label>
+                    <div class="button-group" style="padding-top: 0; justify-content: flex-start; gap: 8px;">
+                        <button id="insertBtn" class="btn btn-primary-violet" style="padding: 10px 16px;">Insert</button>
+                        <button id="deleteBtn" class="btn btn-secondary" style="padding: 10px 16px;">Delete</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="traversalSelect">Traversals</label>
+                    <div class="input-wrapper">
+                        <select id="traversalSelect" class="text-input select-input" style="min-width: 150px;">
+                            <option value="inorder">DFS (In-Order)</option>
+                            <option value="preorder">DFS (Pre-Order)</option>
+                            <option value="postorder">DFS (Post-Order)</option>
+                            <option value="bfs">BFS (Level-Order)</option>
+                        </select>
+                        <button id="traverseBtn" class="btn btn-secondary" style="padding: 10px 16px;">Run</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="speedControl">Animation Speed</label>
+                    <div class="input-wrapper">
+                        <input type="range" id="speedControl" min="200" max="2000" value="800"
+                            class="slider slider-violet">
+                        <span id="speedValue" class="slider-value slider-value-violet">800ms</span>
+                    </div>
+                </div>
+
+                <div class="button-group" style="grid-column: 1 / -1; margin-top: 10px;">
+                    <button id="generateBtn" class="btn btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Generate Random
+                    </button>
+                    <button id="clearBtn" class="btn btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14" />
+                        </svg>
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="visualization-section">
+            <div class="visualization-container tree-canvas-container">
+                <svg id="treeCanvas" class="tree-canvas"></svg>
+                <div class="traversal-result-box" id="traversalResultBox">
+                    <span style="color: var(--text-muted); margin-right: 8px;">Traversal Order:</span>
+                    <span id="traversalResultText">None. Run a traversal to see results.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="info-cards">
+                <div class="info-card status-card">
+                    <div class="card-header">
+                        <div class="card-icon status-icon-violet">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                                <path d="M12 6v6l4 2" />
+                            </svg>
+                        </div>
+                        <h3>Current Status</h3>
+                    </div>
+                    <div class="status-content">
+                        <p id="statusMessage">Insert a node to begin building the tree. Or generate a random tree.</p>
+                    </div>
+                </div>
+
+                <div class="info-card stats-card">
+                    <div class="card-header">
+                        <div class="card-icon stats-icon-violet">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10" />
+                                <path d="M12 20V4" />
+                                <path d="M6 20v-6" />
+                            </svg>
+                        </div>
+                        <h3>Tree Stats</h3>
+                    </div>
+                    <div class="stats-content">
+                        <div class="stat-item">
+                            <span class="stat-label">Nodes Count</span>
+                            <span id="nodeCount" class="stat-value stat-value-violet">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Tree Height</span>
+                            <span id="treeHeight" class="stat-value stat-value-violet">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Balanced status</span>
+                            <span id="balancedStatus" class="stat-value stat-value-violet">True</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card legend-card">
+                    <div class="card-header">
+                        <div class="card-icon legend-icon-violet">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                        </div>
+                        <h3>Legend</h3>
+                    </div>
+                    <div class="legend-content">
+                        <div class="legend-item">
+                            <div class="legend-color node-normal"></div>
+                            <span>Default Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-checking"></div>
+                            <span>Traversal/Path Check</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-visited"></div>
+                            <span>Visited Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color node-rotating"></div>
+                            <span>Pivot/Imbalance Node</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="algorithm-section">
+            <div class="algorithm-cards-row">
+                <div class="algorithm-card algorithm-card-violet" id="bstCard">
+                    <div class="algorithm-header algorithm-header-violet">
+                        <h3>Binary Search Tree (BST)</h3>
+                        <span class="complexity complexity-violet">Avg: O(log n) | Worst: O(n)</span>
+                    </div>
+                    <div class="algorithm-content algorithm-desc">
+                        <p><strong>Property:</strong> For any node N, values in the left subtree are smaller than N, and values in the right subtree are larger than N.</p>
+                        <p><strong>Traversals:</strong> In-order traversal of a BST will always output the node values in sorted ascending order.</p>
+                        <p><strong>Drawback:</strong> Inserting values in sorted order (e.g. 1, 2, 3...) results in a linear chain (skewed tree), causing searches to degrade to O(n) time.</p>
+                    </div>
+                </div>
+
+                <div class="algorithm-card algorithm-card-violet" id="avlCard">
+                    <div class="algorithm-header algorithm-header-violet">
+                        <h3>AVL Tree (Self-Balancing)</h3>
+                        <span class="complexity complexity-violet">Avg: O(log n) | Worst: O(log n)</span>
+                    </div>
+                    <div class="algorithm-content algorithm-desc">
+                        <p><strong>Property:</strong> An AVL tree is a self-balancing BST. The height difference (balance factor) between left and right subtrees of any node cannot exceed 1.</p>
+                        <p><strong>Balancing:</strong> Maintains log n height by executing single or double rotations on insertion and deletion when nodes become unbalanced.</p>
+                        <p><strong>Rotations:</strong> Handles Left-Left (LL), Right-Right (RR) single rotations, and Left-Right (LR), Right-Left (RL) double rotations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Built with ❤️ for learning algorithms</p>
+    </footer>
+
+    <script src="tree.js"></script>
+</body>
+
+</html>

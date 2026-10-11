@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Interactive Linear Search Algorithm Visualizer - Learn how linear search works with step-by-step animations">
+    <title>Algorithms Visualizer | Linear Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="background-effects">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+            <span>Algorithms Visualizer</span>
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Binary Search</a>
+            <a href="linear-search.html" class="nav-link active">Linear Search</a>
+            <a href="bubble-sort.html" class="nav-link">Bubble Sort</a>
+            <a href="insertion-sort.html" class="nav-link">Insertion Sort</a>
+            <a href="selection-sort.html" class="nav-link">Selection Sort</a>
+            <a href="stack.html" class="nav-link">Stack</a>
+            <a href="queue.html" class="nav-link">Queue</a>
+            <a href="graph.html" class="nav-link">Graph</a>
+            <a href="tree.html" class="nav-link">Trees</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <h1 class="hero-title">
+                <span class="gradient-text-orange">Linear Search</span>
+                <br>Visualization
+            </h1>
+            <p class="hero-description">
+                Watch how linear search sequentially checks each element until it finds the target or reaches the end.
+                Simple yet fundamental - perfect for unsorted arrays!
+            </p>
+        </section>
+
+        <section class="controls-section">
+            <div class="controls-card">
+                <div class="control-group">
+                    <label for="arraySize">Array Size</label>
+                    <div class="input-wrapper">
+                        <input type="range" id="arraySize" min="5" max="20" value="10" class="slider slider-orange">
+                        <span id="arraySizeValue" class="slider-value slider-value-orange">10</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="customArray">Custom Array <span class="optional">(comma-separated, any
+                            order)</span></label>
+                    <div class="input-wrapper">
+                        <input type="text" id="customArray" placeholder="e.g., 42, 17, 8, 91, 33, 56, 24, 5, 78, 12"
+                            class="text-input">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="targetValue">Target Value</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="targetValue" placeholder="Enter value to search"
+                            class="text-input number-input">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="speedControl">Animation Speed</label>
+                    <div class="input-wrapper">
+                        <input type="range" id="speedControl" min="100" max="2000" value="500"
+                            class="slider slider-orange">
+                        <span id="speedValue" class="slider-value slider-value-orange">500ms</span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Generate Random
+                    </button>
+                    <button id="searchBtn" class="btn btn-primary-orange">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="M21 21l-4.35-4.35" />
+                        </svg>
+                        Start Search
+                    </button>
+                    <button id="resetBtn" class="btn btn-outline">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="visualization-section">
+            <div class="visualization-container">
+                <div class="current-pointer-container" id="currentPointerContainer"></div>
+                <div class="array-container" id="arrayContainer"></div>
+                <div class="indices-container" id="indicesContainer"></div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="info-cards">
+                <div class="info-card status-card">
+                    <div class="card-header">
+                        <div class="card-icon status-icon-orange">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                                <path d="M12 6v6l4 2" />
+                            </svg>
+                        </div>
+                        <h3>Current Status</h3>
+                    </div>
+                    <div class="status-content">
+                        <p id="statusMessage">Configure your array and click "Start Search" to begin</p>
+                    </div>
+                </div>
+
+                <div class="info-card stats-card">
+                    <div class="card-header">
+                        <div class="card-icon stats-icon-orange">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10" />
+                                <path d="M12 20V4" />
+                                <path d="M6 20v-6" />
+                            </svg>
+                        </div>
+                        <h3>Statistics</h3>
+                    </div>
+                    <div class="stats-content">
+                        <div class="stat-item">
+                            <span class="stat-label">Comparisons</span>
+                            <span id="comparisons" class="stat-value stat-value-orange">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Current Index</span>
+                            <span id="currentIndex" class="stat-value stat-value-orange">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Array Length</span>
+                            <span id="arrayLength" class="stat-value stat-value-orange">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card legend-card">
+                    <div class="card-header">
+                        <div class="card-icon legend-icon-orange">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                        </div>
+                        <h3>Legend</h3>
+                    </div>
+                    <div class="legend-content">
+                        <div class="legend-item">
+                            <div class="legend-color current-check"></div>
+                            <span>Currently Checking</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color checked-item"></div>
+                            <span>Already Checked</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color found"></div>
+                            <span>Found Element</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color not-found-item"></div>
+                            <span>Not Checked Yet</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="algorithm-section">
+            <div class="algorithm-card algorithm-card-orange">
+                <div class="algorithm-header algorithm-header-orange">
+                    <h3>Linear Search Algorithm</h3>
+                    <span class="complexity complexity-orange">Time Complexity: O(n)</span>
+                </div>
+                <div class="algorithm-content">
+                    <pre><code><span class="keyword">function</span> <span class="function">linearSearch</span>(arr, target) {
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < arr.length; i++) {
+        <span class="keyword">if</span> (arr[i] === target) {
+            <span class="keyword">return</span> i; <span class="comment">// Found at index i</span>
+        }
+    }
+    
+    <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// Not found in array</span>
+}</code></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Built with ❤️ for learning algorithms</p>
+    </footer>
+
+    <script src="linear-search.js"></script>
+</body>
+
+</html>
